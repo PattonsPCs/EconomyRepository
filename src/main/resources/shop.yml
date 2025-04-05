@@ -1,0 +1,10 @@
+shop:
+  items:
+    diamond_sword:
+      material: DIAMOND_SWORD
+      price: 500
+      display-name: "&bEpic Cool Sword"
+    iron_armor:
+      material: IRON_CHESTPLATE
+      price: 300
+      display-name: "&fNormal Armor"

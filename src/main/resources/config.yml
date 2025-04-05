@@ -1,0 +1,21 @@
+plugin:
+  prefix: "&7[&bSigmaSigmaBoy&7]"
+  default-currency: "Vault"
+  use-multiple-currencies: false
+
+settings:
+  debug-mode: true
+  save-interval: 10
+  land:
+    max-plots-per-player: 3
+    allow-pvp-in-owned-land: false
+
+economy:
+  charge-on-purchase: true
+  refund-on-sell: true
+  transaction-log: true
+
+features:
+  enable-shop: true
+  enable-land-claims: true
+  enable-item-trading: false

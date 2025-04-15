@@ -1,4 +1,4 @@
-package org.example;
+package com.anthony;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

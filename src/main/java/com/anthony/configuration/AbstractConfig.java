@@ -1,4 +1,4 @@
-package org.example.configuration;
+package com.anthony.configuration;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -53,10 +53,6 @@ public class AbstractConfig {
 
     public int getInt(String path){
         return config.getInt(path);
-    }
-
-    public boolean getBoolean(String path){
-        return config.getBoolean(path);
     }
 
     public void set(String path, Object value){

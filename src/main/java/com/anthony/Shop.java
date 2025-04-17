@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.anthony.configuration.ShopConfig;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 public class Shop {
     public void setupShop(JavaPlugin plugin){
@@ -11,7 +12,17 @@ public class Shop {
 
         shopConfig.onLoad();
 
-        ItemStack diamondSword = new ItemStack(Material.DIAMOND_SWORD, 1);
-        shopConfig.addItem("diamond_sword", diamondSword, 500.0);
+        ItemStack food = new ItemStack(Material.BREAD, 10);
+        ItemStack miscellaneous = new ItemStack(Material.ELYTRA,  1);
+        shopConfig.addItem("&bSuper Skibidi Bread!!!", food, 10.0);
+        shopConfig.addItem("&fOhio Gyatt Sigma Item!!!", miscellaneous, 20.0);
     }
+
+    public void onPlayerClick(PlayerInteractEvent event, ItemStack clickedItem){
+
+
+    }
+
+
+
 }

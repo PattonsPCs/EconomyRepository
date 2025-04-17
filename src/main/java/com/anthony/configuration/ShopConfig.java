@@ -3,7 +3,7 @@ package com.anthony.configuration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-import com.anthony.Econ;
+import com.anthony.PlayerEcon;
 import org.bukkit.inventory.PlayerInventory;
 
 
@@ -12,7 +12,6 @@ public class ShopConfig extends AbstractConfig{
     private double price;
     public ShopConfig(JavaPlugin plugin, String fileName) {
         super(plugin, fileName);
-
     }
 
 
@@ -46,8 +45,18 @@ public class ShopConfig extends AbstractConfig{
         return this.price;
     }
 
-    public void buy(ItemStack item, Econ econ, Player player){
-        double price = getPrice();
+    public ItemStack getItem(String id){
+        return getConfig().getItemStack("shop." + id + ".item");
+    }
+
+    public double getItemPrice(String id){
+        return getConfig().getDouble("shop." + id + ".price");
+    }
+
+/*
+
+    public void buy(ItemStack item, PlayerEcon econ, Player player){
+        int price = getPrice();
         System.out.println("Items in stack: " + item.getAmount());
         if(econ.getBalance(player) >= price){
             econ.withdrawPlayer(player, price);
@@ -56,8 +65,8 @@ public class ShopConfig extends AbstractConfig{
         }
     }
 
-    public void sell(ItemStack item, Econ econ, PlayerInventory playerInventory, Player player){
-        double price = getPrice();
+    public void sell(ItemStack item, PlayerEcon econ, PlayerInventory playerInventory, Player player){
+        int price = getPrice();
         System.out.println("Items in stack: " + item.getAmount());
         if(playerInventory.contains(item)){
             playerInventory.removeItem(item);
@@ -68,6 +77,10 @@ public class ShopConfig extends AbstractConfig{
         }
     }
 
+    public boolean canAfford(Player player, PlayerEcon econ){
+        return (econ.getBalance(player) >= getPrice());
+    }
 
 
+*/
 }

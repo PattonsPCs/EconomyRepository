@@ -1,0 +1,6 @@
+name: EconPlugin
+version: 1.0
+main: com.anthony.PlayerEcon
+api-version: 1.21
+description: A simple economy plugin for managing player currency
+authors: [ Anthony ]

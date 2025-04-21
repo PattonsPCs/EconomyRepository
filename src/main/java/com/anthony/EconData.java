@@ -2,12 +2,14 @@ package com.anthony;
 
 
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.*;
 
 public class EconData{
     private Connection connection;
     private PlayerEcon playerEcon = new PlayerEcon(0);
+    private JavaPlugin plugin;
 
     public void connect(){
         try{

@@ -40,6 +40,8 @@ public class PlayerEcon extends JavaPlugin{
                 event -> event.registrar().register("deposit", new Deposit(this)));
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS,
                 event -> event.registrar().register("withdraw", new Withdraw(this)));
+        saveConfig();
+        reloadConfig();
         getLogger().info("EconPlugin has been enabled!");
     }
 

@@ -1,5 +1,7 @@
 package com.anthony.configuration;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -8,8 +10,10 @@ import java.io.File;
 
 public class AbstractConfig {
     private final File file;
+    @Getter @Setter
     private FileConfiguration config;
     private final String fileName;
+    @Getter
     private final JavaPlugin plugin;
 
     public AbstractConfig(JavaPlugin plugin, String fileName) {
@@ -39,13 +43,6 @@ public class AbstractConfig {
         config = YamlConfiguration.loadConfiguration(file);
     }
 
-    public void setConfig(FileConfiguration config){
-        this.config = config;
-    }
-
-    public FileConfiguration getConfig(){
-        return config;
-    }
 
     public String getString(String path){
         return config.getString(path);
@@ -61,7 +58,4 @@ public class AbstractConfig {
 
     public void onLoad(){}
 
-    public JavaPlugin getPlugin(){
-        return plugin;
-    }
 }

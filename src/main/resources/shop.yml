@@ -1,34 +1,35 @@
 shop:
-  apple:
-    item:
-      ==: org.bukkit.inventory.ItemStack
-      type: APPLE
-      amount: 7
+  items:
+    apple:
+      item:
+        ==: org.bukkit.inventory.ItemStack
+        type: APPLE
+        amount: 7
       price: 10
 
-  iron_chestplate:
-    item:
-      ==: org.bukkit.inventory.ItemStack
-      type: IRON_CHESPLATE
-      amount: 1
+    iron_chestplate:
+      item:
+        ==: org.bukkit.inventory.ItemStack
+        type: IRON_CHESTPLATE
+        amount: 1
       price: 12
-  diamond_sword:
-    item:
-      ==: org.bukkit.inventory.ItemStack
-      type: DIAMOND_SWORD
-      amount: 1
+    diamond_sword:
+      item:
+        ==: org.bukkit.inventory.ItemStack
+        type: DIAMOND_SWORD
+        amount: 1
       price: 25
 
-  steak:
-    item:
-      ==: org.bukkit.inventory.ItemStack
-      type: COOKED_BEEF
-      amount: 5
+    steak:
+      item:
+        ==: org.bukkit.inventory.ItemStack
+        type: COOKED_BEEF
+        amount: 5
       price: 15
 
-  wheat:
-    item:
-      ==: org.bukkit.inventory.ItemStack
-      type: WHEAT
-      amount: 100
-      price: 1
+    wheat:
+      item:
+        ==: org.bukkit.inventory.ItemStack
+        type: WHEAT
+        amount: 100
+      price: 8

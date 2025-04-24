@@ -3,27 +3,31 @@ package com.anthony.commands;
 import com.anthony.Account;
 import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
-import org.jspecify.annotations.Nullable;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.jspecify.annotations.NullMarked;
-import com.anthony.Econ;
-import org.bukkit.entity.Player;
 import com.anthony.configuration.ShopConfig;
 
 @NullMarked @SuppressWarnings("UnstableApiUsage")
 public class BuyCommand implements BasicCommand {
 
-    private Account account;
-    private ShopConfig shopConfig;
-    private Player player;
+    private final Account account;
+    private final ShopConfig shopConfig;
 
     public BuyCommand(){
-        super();
+        this.account = new Account(null);
+        this.shopConfig = new ShopConfig(null, "shop.yml");
     }
+
+
 
     @Override
     public void execute(CommandSourceStack source, String[] args){
         if(args.length < 1){
-            player.sendMessage("Invalid syntax. /buy <item id>");
+            @SuppressWarnings("ConstantConditions")
+            Component errorMessage = Component.text("Usage: /buy <item>")
+                    .color(NamedTextColor.RED);
+            source.getExecutor().sendMessage(errorMessage);
         }else{
             account.pay(shopConfig.getItemPrice(args[0]));
         }

@@ -39,6 +39,8 @@ public class Econ extends JavaPlugin{
         shopConfig.load();
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS,
                 event -> event.registrar().register("buy", new BuyCommand()));
+        this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS,
+                event -> event.registrar().register("balance", new BalanceCommand()));
         saveConfig();
         reloadConfig();
         getLogger().info("EconPlugin has been enabled!");

@@ -1,6 +1,20 @@
 name: EconPlugin
 version: 1.0
-main: com.anthony.PlayerEcon
+main: com.anthony.Econ
 api-version: 1.21
 description: A simple economy plugin for managing player currency
 authors: [ Anthony ]
+commands:
+  buy:
+    description: Buy an item from the shop
+    usage: /buy <item>
+    permission: econplugin.buy.use
+    permission-message: You don't have permission to use this command.
+    registered: false   # <-- THIS IS CRUCIAL
+  balance:
+    description: Check your balance
+    usage: /balance
+    permission: econplugin.balance.use
+    permission-message: You don't have permission to use this command.
+    registered: false   # <-- THIS TOO
+

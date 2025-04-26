@@ -16,6 +16,7 @@ public class Econ extends JavaPlugin{
     @Getter
     private final Map<UUID, Account> accounts = new HashMap<>();
     private Database database;
+    private final ShopConfig shopConfig = new ShopConfig(this, "shop.yml");
 
     @Override
     public void onEnable() {
@@ -23,14 +24,13 @@ public class Econ extends JavaPlugin{
         database.connect();
         database.createTable();
 
-        ShopConfig shopConfig = new ShopConfig(this, "shop.yml");
         shopConfig.load();
-
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS,
                 event ->{
                     event.registrar().register("buy", new BuyCommand(this, shopConfig));
                     event.registrar().register("balance", new BalanceCommand(this));
                 });
+
         getLogger().info("EconPlugin has been enabled!");
     }
 

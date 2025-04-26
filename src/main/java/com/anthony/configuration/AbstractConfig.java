@@ -24,37 +24,15 @@ public class AbstractConfig {
 
     public void load(){
         if(!file.exists()){
-            file.getParentFile().mkdirs();
+           if(!(file.getParentFile().mkdirs())){
+               plugin.getLogger().severe("Failed to create config directory.");
+           }
             plugin.saveResource(fileName, false);
         }
         config = YamlConfiguration.loadConfiguration(file);
         onLoad();
     }
 
-    public void save(){
-        try{
-            config.save(file);
-        } catch (Exception e){
-            plugin.getLogger().severe(e.getMessage());
-        }
-    }
-
-    public void reload(){
-        config = YamlConfiguration.loadConfiguration(file);
-    }
-
-
-    public String getString(String path){
-        return config.getString(path);
-    }
-
-    public int getInt(String path){
-        return config.getInt(path);
-    }
-
-    public void set(String path, Object value){
-        config.set(path, value);
-    }
 
     public void onLoad(){}
 

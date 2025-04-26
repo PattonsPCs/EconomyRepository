@@ -1,13 +1,12 @@
 package com.anthony.configuration;
 
+import com.anthony.Account;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-import com.anthony.Econ;
-
 @Getter @Setter
 public class ShopConfig extends AbstractConfig{
 
@@ -27,9 +26,9 @@ public class ShopConfig extends AbstractConfig{
 
     }
 
-    public boolean canAfford(Player player, Econ econ, String id){
+    public boolean canAfford(Player player, Account account, String id){
         int price = getItemPrice(id);
-        if(econ.getCurrencyAmount() < price) {
+        if(account.getBalance() < price) {
             player.sendMessage("You do not have enough money to buy this item.");
             return false;
         } else {
@@ -40,6 +39,7 @@ public class ShopConfig extends AbstractConfig{
     public ItemStack getItem(String id){
         return shopConfig.getItemStack("shop.items." + id + ".item");
     }
+
 
 
     public int getItemPrice(String id){

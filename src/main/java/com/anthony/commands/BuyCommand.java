@@ -63,6 +63,6 @@ public class BuyCommand implements BasicCommand {
 
     @Override
     public String permission(){
-        return "buy.use";
+        return "econplugin.buy.use";
     }
 }

@@ -31,6 +31,12 @@ public class BalanceCommand implements BasicCommand{
             return;
         }
         Account account = econ.getAccount(player);
+
+        if(account == null){
+            source.getExecutor().sendMessage("Account not found.");
+            logger.debug("Account not found for player.");
+            return;
+        }
         Component balanceMessage = Component.text("Your current balance is " + getBalance(account) + ".")
                 .color(NamedTextColor.GOLD);
         source.getExecutor().sendMessage(balanceMessage);

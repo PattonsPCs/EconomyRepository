@@ -7,6 +7,11 @@ import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -17,7 +22,7 @@ public class Econ extends JavaPlugin{
     private final Map<UUID, Account> accounts = new HashMap<>();
     private Database database;
     private final ShopConfig shopConfig = new ShopConfig(this, "shop.yml");
-
+    private Connection connection;
 
     @Override
     public void onEnable() {
@@ -33,6 +38,30 @@ public class Econ extends JavaPlugin{
                 });
 
         getLogger().info("EconPlugin has been enabled!");
+    }
+
+    public void connectDatabase(){
+        try{
+            File dbFile = new File(getDataFolder(), "database.db");
+
+            if(!dbFile.exists()){
+                getLogger().info("Database file not found, creating a new one.");
+                if(!(dbFile.getParentFile().mkdirs())){
+                    getLogger().severe("Failed to create database directory.");
+                }
+                if(!(dbFile.createNewFile())){
+                    getLogger().severe("Failed to create database file.");
+                }
+
+                String url = "jdbc:sqlite:" + dbFile.getAbsolutePath();
+                connection = DriverManager.getConnection(url);
+
+                getLogger().info("Database connection established.");
+            }
+        } catch(SQLException | IOException e){
+            getLogger().severe("Failed to connect to the database: " + e.getMessage());
+        }
+
     }
 
     public Account getAccount(Player player){

@@ -37,7 +37,7 @@ public class BalanceCommand implements BasicCommand{
 
     @Override
     public String permission() {
-        return "econplugin.balance.use";
+        return "balance.use";
     }
 
 }

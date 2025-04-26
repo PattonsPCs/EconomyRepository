@@ -9,11 +9,14 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.NullMarked;
 import com.anthony.Account;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @NullMarked @SuppressWarnings("UnstableApiUsage")
 public class BalanceCommand implements BasicCommand{
 
     private final Econ econ;
+    private final Logger logger = LoggerFactory.getLogger(BalanceCommand.class);
 
     public BalanceCommand(Econ econ){
         this.econ = econ;
@@ -24,6 +27,7 @@ public class BalanceCommand implements BasicCommand{
         Player player = (Player) source.getExecutor();
         if (player == null) {
             source.getExecutor().sendMessage("You must be a player to use this command.");
+            logger.debug("Command executed by non-player.");
             return;
         }
         Account account = econ.getAccount(player);

@@ -10,12 +10,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jspecify.annotations.NullMarked;
 import com.anthony.configuration.ShopConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @NullMarked @SuppressWarnings("UnstableApiUsage")
 public class BuyCommand implements BasicCommand {
 
     private final Econ econ;
     private final ShopConfig shopConfig;
+    private final Logger logger = LoggerFactory.getLogger(BuyCommand.class);
 
     public BuyCommand(Econ econ, ShopConfig shopConfig){
         this.econ = econ;
@@ -29,6 +32,7 @@ public class BuyCommand implements BasicCommand {
         if(!(source.getExecutor() instanceof Player player)){
             if(source.getExecutor() != null){
                 source.getExecutor().sendMessage("You must be a player to use this command.");
+                logger.debug("Command executed by non-player.");
             }
             return;
         }

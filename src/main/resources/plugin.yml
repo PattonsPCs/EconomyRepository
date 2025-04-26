@@ -10,11 +10,11 @@ commands:
     usage: /buy <item>
     permission: econplugin.buy.use
     permission-message: You don't have permission to use this command.
-    registered: false   # <-- THIS IS CRUCIAL
+    registered: false
   balance:
     description: Check your balance
     usage: /balance
     permission: econplugin.balance.use
     permission-message: You don't have permission to use this command.
-    registered: false   # <-- THIS TOO
+    registered: false
 

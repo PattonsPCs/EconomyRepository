@@ -44,7 +44,7 @@ public class ShopConfig extends AbstractConfig{
             return null;
         }
 
-        Material material = Material.getMaterial(materialName);
+        Material material = Material.matchMaterial(materialName);
 
         if(material == null) {
             getPlugin().getLogger().warning("Material " + materialName + " not found for item " + id);

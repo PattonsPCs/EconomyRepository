@@ -18,6 +18,7 @@ public class Econ extends JavaPlugin{
     private Database database;
     private final ShopConfig shopConfig = new ShopConfig(this, "shop.yml");
 
+
     @Override
     public void onEnable() {
         database = new Database();

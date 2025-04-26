@@ -22,10 +22,11 @@ public class BalanceCommand implements BasicCommand{
     @Override
     public void execute(CommandSourceStack source, String[] args) {
         Player player = (Player) source.getExecutor();
-        @SuppressWarnings("ConstantConditions")
+        if (player == null) {
+            source.getExecutor().sendMessage("You must be a player to use this command.");
+            return;
+        }
         Account account = econ.getAccount(player);
-        // Logic to display the player's balance
-        @SuppressWarnings("ConstantConditions")
         Component balanceMessage = Component.text("Your current balance is " + getBalance(account) + ".")
                 .color(NamedTextColor.GOLD);
         source.getExecutor().sendMessage(balanceMessage);

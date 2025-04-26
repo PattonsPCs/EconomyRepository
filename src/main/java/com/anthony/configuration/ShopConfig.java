@@ -3,6 +3,7 @@ package com.anthony.configuration;
 import com.anthony.Account;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -37,7 +38,20 @@ public class ShopConfig extends AbstractConfig{
     }
 
     public ItemStack getItem(String id){
-        return shopConfig.getItemStack("shop.items." + id + ".item");
+        String materialName = shopConfig.getString("shop.items." + id + ".item");
+        if(materialName == null) {
+            getPlugin().getLogger().warning("Material name not found for item " + id);
+            return null;
+        }
+
+        Material material = Material.getMaterial(materialName);
+
+        if(material == null) {
+            getPlugin().getLogger().warning("Material " + materialName + " not found for item " + id);
+            return null;
+        }
+
+        return new ItemStack(material);
     }
 
 

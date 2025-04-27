@@ -15,6 +15,10 @@ public class Account {
     public Account(Player player){
         this.playerID = player.getUniqueId();
     }
+    public Account(UUID playerID, int balance){
+        this.playerID = playerID;
+        this.balance = balance;
+    }
     public void withdraw(int amount){
         balance -= amount;
     }

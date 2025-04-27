@@ -2,6 +2,7 @@ package com.anthony.commands;
 
 import com.anthony.Account;
 import com.anthony.Econ;
+import com.anthony.EconData;
 import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.kyori.adventure.text.Component;
@@ -19,10 +20,12 @@ public class BuyCommand implements BasicCommand {
     private final Econ econ;
     private final ShopConfig shopConfig;
     private final Logger logger = LoggerFactory.getLogger(BuyCommand.class);
+    private final EconData econData;
 
-    public BuyCommand(Econ econ, ShopConfig shopConfig){
+    public BuyCommand(Econ econ, ShopConfig shopConfig, EconData econData){
         this.econ = econ;
         this.shopConfig = shopConfig;
+        this.econData = econData;
     }
 
 
@@ -52,6 +55,7 @@ public class BuyCommand implements BasicCommand {
 
         int price = shopConfig.getItemPrice(itemId);
         account.withdraw(price);
+        econData.saveBalance(account.getPlayerID(), account.getBalance());
 
         ItemStack item = shopConfig.getItem(itemId);
         if(item != null){

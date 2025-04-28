@@ -9,10 +9,8 @@ commands:
     description: Buy an item from the shop
     usage: /buy <item>
     permission: econplugin.buy.use
-    registered: false
   balance:
     description: Check your balance
     usage: /balance
     permission: econplugin.balance.use
-    registered: false
 

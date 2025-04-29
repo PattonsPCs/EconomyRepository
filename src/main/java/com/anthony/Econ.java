@@ -16,6 +16,7 @@ import java.util.UUID;
 public class Econ extends JavaPlugin{
     @Getter
     private final Map<UUID, Account> accounts = new HashMap<>();
+    @Getter
     private ShopConfig shopConfig;
     private EconData econData;
 
@@ -28,7 +29,7 @@ public class Econ extends JavaPlugin{
         econData.loadAllAccounts(accounts);
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS,
                 event ->{
-                    event.registrar().register("buy", "Buy something from the shop." ,new BuyCommand(this, shopConfig, econData));
+                    event.registrar().register("buy", "Buy something from the shop." ,new BuyCommand(this, econData));
                     event.registrar().register("balance","Check your balance." ,new BalanceCommand(this));
                 });
 

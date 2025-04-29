@@ -10,7 +10,6 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jspecify.annotations.NullMarked;
-import com.anthony.configuration.ShopConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,13 +17,11 @@ import org.slf4j.LoggerFactory;
 public class BuyCommand implements BasicCommand {
 
     private final Econ econ;
-    private final ShopConfig shopConfig;
     private final Logger logger = LoggerFactory.getLogger(BuyCommand.class);
     private final EconData econData;
 
-    public BuyCommand(Econ econ, ShopConfig shopConfig, EconData econData){
+    public BuyCommand(Econ econ, EconData econData){
         this.econ = econ;
-        this.shopConfig = shopConfig;
         this.econData = econData;
     }
 
@@ -49,15 +46,15 @@ public class BuyCommand implements BasicCommand {
         String itemId = args[0];
         Account account = econ.getAccount(player);
 
-        if(!shopConfig.canAfford(player, account, itemId)){
+        if(!econ.getShopConfig().canAfford(player, account, itemId)){
             return;
         }
 
-        int price = shopConfig.getItemPrice(itemId);
+        int price = econ.getShopConfig().getItemPrice(itemId);
         account.withdraw(price);
         econData.saveAccount(account.getPlayerID(), account.getBalance());
 
-        ItemStack item = shopConfig.getItem(itemId);
+        ItemStack item = econ.getShopConfig().getItem(itemId);
         if(item != null){
             player.getInventory().addItem(item.clone());
             player.sendMessage(Component.text("You have bought " + item.getType().name() + " for " + price + ".")

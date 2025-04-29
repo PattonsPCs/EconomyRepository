@@ -16,14 +16,14 @@ import java.util.UUID;
 public class Econ extends JavaPlugin{
     @Getter
     private final Map<UUID, Account> accounts = new HashMap<>();
-    private final ShopConfig shopConfig = new ShopConfig(this, "shop.yml");
+    private ShopConfig shopConfig;
     private EconData econData;
 
     @Override
     public void onEnable() {
-
         getLogger().info("EconPlugin is starting...");
         econData = new EconData();
+        shopConfig = new ShopConfig(this);
         shopConfig.load();
         econData.loadAllAccounts(accounts);
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS,

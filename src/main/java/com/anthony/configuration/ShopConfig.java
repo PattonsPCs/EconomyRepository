@@ -12,8 +12,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class ShopConfig extends AbstractConfig{
 
     private FileConfiguration shopConfig;
-    public ShopConfig(JavaPlugin plugin, String fileName) {
-        super(plugin, fileName);
+    public ShopConfig(JavaPlugin plugin) {
+        super(plugin, "shop.yml");
         shopConfig = getConfig();
     }
 

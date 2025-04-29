@@ -1,5 +1,6 @@
 package com.anthony;
 
+import com.anthony.commands.AddMoney;
 import com.anthony.commands.BalanceCommand;
 import com.anthony.commands.BuyCommand;
 import com.anthony.configuration.ShopConfig;
@@ -31,6 +32,7 @@ public class Econ extends JavaPlugin {
         event -> {
           event.registrar().register("buy", "Buy something from the shop.", new BuyCommand(this, econData));
           event.registrar().register("balance", "Check your balance.", new BalanceCommand(this));
+          event.registrar().register("addmoney", "Add money to an account", new AddMoney(this));
         });
 
     getLogger().info("EconPlugin has been enabled!");

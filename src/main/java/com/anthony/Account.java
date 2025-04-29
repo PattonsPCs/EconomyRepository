@@ -24,6 +24,7 @@ public class Account {
   }
 
   public void withdraw(int amount) {
-    balance = balance - amount;
+    balance -= amount;
   }
+  public void deposit(int amount){balance += amount;}
 }

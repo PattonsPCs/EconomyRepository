@@ -45,17 +45,14 @@ public class AddMoney implements BasicCommand {
 
     public Collection<String> suggest(final CommandSourceStack commandSourceStack, final String[] args) {
         if (args.length == 0) {
-            commandSourceStack.getSender().sendRichMessage("Lick my balls");
             return Bukkit.getOnlinePlayers().stream()
                 .map(Player::getName)
                 .toList();
         }
         if (args.length == 1) {
-            if (args[0].isEmpty())
-                commandSourceStack.getSender().sendRichMessage("Lick my nuts");
           return Bukkit.getOnlinePlayers().stream()
               .map(Player::getName)
-              .filter(name -> args[0].isEmpty() || name.startsWith(args[0]))
+              .filter(name -> name.startsWith(args[0]))
               .toList();
         }
         return Collections.emptyList();

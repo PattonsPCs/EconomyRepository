@@ -55,7 +55,7 @@ public class BuyCommand implements BasicCommand {
 
         int price = shopConfig.getItemPrice(itemId);
         account.withdraw(price);
-        econData.saveBalance(account.getPlayerID(), account.getBalance());
+        econData.saveAccount(account.getPlayerID(), account.getBalance());
 
         ItemStack item = shopConfig.getItem(itemId);
         if(item != null){

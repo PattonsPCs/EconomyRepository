@@ -33,7 +33,7 @@ public class BalanceCommand implements BasicCommand{
         Account account = econ.getAccount(player);
 
         if(account == null){
-            source.getExecutor().sendMessage("Account not found.");
+            player.sendMessage("Account not found.");
             logger.debug("Account not found for player.");
             return;
         }

@@ -25,8 +25,7 @@ public class Econ extends JavaPlugin{
         getLogger().info("EconPlugin is starting...");
         econData = new EconData();
         shopConfig.load();
-
-        econData.loadAllBalances(accounts);
+        econData.loadAllAccounts(accounts);
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS,
                 event ->{
                     event.registrar().register("buy", "Buy something from the shop." ,new BuyCommand(this, shopConfig, econData));

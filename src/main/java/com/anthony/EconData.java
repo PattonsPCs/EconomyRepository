@@ -17,12 +17,8 @@ public class EconData {
         return balances.getOrDefault(uuid, 0);
     }
 
-    public void saveBalance(UUID uuid, int balance){
-        balances.put(uuid, balance);
-    }
 
-
-    public void loadAllBalances(Map<UUID, Account> accounts){
+    public void loadAllAccounts(Map<UUID, Account> accounts){
         for(Map.Entry<UUID, Integer> entry : balances.entrySet()){
             UUID uuid = entry.getKey();
             int balance = entry.getValue();

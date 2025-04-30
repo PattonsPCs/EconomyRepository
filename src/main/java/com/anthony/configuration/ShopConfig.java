@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import java.util.Collection;
 
 @Getter
 @Setter
@@ -41,6 +42,11 @@ public class ShopConfig extends AbstractConfig {
     }
 
     return new ItemStack(material);
+  }
+
+  @SuppressWarnings("DataFlowIssue")
+  public Collection<String> getAllItems(){
+    return getConfig().getConfigurationSection("shop.items").getKeys(false);
   }
 
 

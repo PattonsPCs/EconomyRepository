@@ -47,9 +47,5 @@ public class BalanceCommand implements BasicCommand {
     return account.getBalance();
   }
 
-  @Override
-  public String permission() {
-    return "econplugin.balance.use";
-  }
 
 }

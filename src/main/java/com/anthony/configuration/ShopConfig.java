@@ -45,7 +45,6 @@ public class ShopConfig extends AbstractConfig {
     if (amount > 0) {
       item.setAmount(amount);
     }
-
     return item;
   }
 

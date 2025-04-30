@@ -50,7 +50,7 @@ public class BuyCommand implements BasicCommand {
     ItemStack item = econ.getShopConfig().getItem(itemId);
     if (item != null) {
       player.getInventory().addItem(item.clone());
-      sender.sendRichMessage("<green>You have bought <gold>" + item.getType().name() + "</gold> for <purple>" + price + "</purple>.</green>");
+      sender.sendRichMessage("<green>You have bought <gold>" + item.getType().name() + "</gold> for <purple>" + price + "</purple> .</green>");
     } else {
       sender.sendRichMessage("<red>Item not found in shop.</red>");
     }

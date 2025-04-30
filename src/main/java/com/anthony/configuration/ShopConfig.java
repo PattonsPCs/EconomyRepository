@@ -40,8 +40,13 @@ public class ShopConfig extends AbstractConfig {
       getPlugin().getLogger().warning("Material " + materialName + " not found for item " + id);
       return null;
     }
+    ItemStack item = new ItemStack(material);
+    int amount = getAmount(id);
+    if (amount > 0) {
+      item.setAmount(amount);
+    }
 
-    return new ItemStack(material);
+    return item;
   }
 
   @SuppressWarnings("DataFlowIssue")
@@ -49,6 +54,9 @@ public class ShopConfig extends AbstractConfig {
     return getConfig().getConfigurationSection("shop.items").getKeys(false);
   }
 
+  public int getAmount(String id) {
+    return getConfig().getInt("shop.items." + id + ".amount");
+  }
 
   public int getItemPrice(String id) {
     return getConfig().getInt("shop.items." + id + ".price");

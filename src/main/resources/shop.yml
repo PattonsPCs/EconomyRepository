@@ -3,6 +3,7 @@ shop:
     apple:
       item: APPLE
       price: 10
+      amount: 5
 
     iron_chestplate:
       item: IRON_CHESTPLATE
@@ -15,7 +16,10 @@ shop:
     steak:
       item: COOKED_BEEF
       price: 15
+      amount: 3
+
 
     wheat:
       item: WHEAT
       price: 8
+      amount: 7

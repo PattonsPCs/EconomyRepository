@@ -29,10 +29,7 @@ public class AbstractConfig {
       }
       plugin.saveResource(fileName, false);
     }
-    if( !file.exists() ) {
-      plugin.saveResource(fileName, false);
-      plugin.getLogger().severe("Failed to save config file.");
-    }
+
     config = YamlConfiguration.loadConfiguration(file);
     plugin.getLogger().info("Loaded config file " + fileName + " from disk.");
 
@@ -41,8 +38,25 @@ public class AbstractConfig {
 
   }
 
-  public void reload(){
-    load();
+  public void reload() {
+    // If file exists, reload it; otherwise create it
+    if (file.exists()) {
+      config = YamlConfiguration.loadConfiguration(file);
+      plugin.getLogger().info("Reloaded existing config file " + fileName);
+    } else {
+      // Handle missing file on reload
+      plugin.getLogger().warning("Config file " + fileName + " missing, recreating...");
+      if (!file.getParentFile().exists() && !file.getParentFile().mkdirs()) {
+        plugin.getLogger().severe("Failed to create config directory for " + fileName);
+      }
+      plugin.saveResource(fileName, true); // Force overwrite
+      if (file.exists()) {
+        config = YamlConfiguration.loadConfiguration(file);
+        plugin.getLogger().info("Created and loaded config file " + fileName);
+      } else {
+        plugin.getLogger().severe("Failed to create config file " + fileName);
+      }
+    }
   }
 
 }

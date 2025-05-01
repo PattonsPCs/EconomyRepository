@@ -28,7 +28,7 @@ public class ShopConfig extends AbstractConfig {
   }
 
   public ItemStack getItem(String id) {
-    String materialName = getConfig().getString("shop.items." + id + ".item");
+    String materialName = getConfig().getString("shop.items." + id.toLowerCase() + ".item");
     if (materialName == null) {
       getPlugin().getLogger().warning("Material name not found for item " + id.toLowerCase());
       return null;
@@ -91,4 +91,5 @@ public class ShopConfig extends AbstractConfig {
       getPlugin().getLogger().info("-shop section does not exist");
     }
   }
+
 }

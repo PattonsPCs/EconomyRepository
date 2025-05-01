@@ -38,6 +38,7 @@ public class Econ extends JavaPlugin {
         });
 
     getLogger().info("EconPlugin has been enabled!");
+    shopConfig.debugConfig();
   }
 
 

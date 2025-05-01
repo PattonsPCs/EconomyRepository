@@ -70,4 +70,25 @@ public class ShopConfig extends AbstractConfig {
     return price;
   }
 
+  @SuppressWarnings("DataFlowIssue")
+  public void debugConfig(){
+    getPlugin().getLogger().info("Shop config sections:");
+    if(getConfig().contains("shop")){
+      getPlugin().getLogger().info("-shop section exists");
+      if(getConfig().contains("shop.items")){
+        getPlugin().getLogger().info("-shop.items section exists");
+
+        for(String key : getConfig().getConfigurationSection("shop.items").getKeys(false)){
+          getPlugin().getLogger().info(" - Item: " + key);
+          getPlugin().getLogger().info("   - Price: " + getConfig().getInt("shop.items." + key + ".price"));
+          getPlugin().getLogger().info("   - Amount: " + getConfig().getInt("shop.items." + key + ".amount"));
+          getPlugin().getLogger().info("   - Material: " + getConfig().getString("shop.items." + key + ".item"));
+        }
+      } else{
+        getPlugin().getLogger().info("-shop.items section does not exist");
+      }
+    } else{
+      getPlugin().getLogger().info("-shop section does not exist");
+    }
+  }
 }

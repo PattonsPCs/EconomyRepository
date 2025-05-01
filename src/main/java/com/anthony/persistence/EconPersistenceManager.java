@@ -65,7 +65,7 @@ public class EconPersistenceManager {
                 plugin,
                 this::saveBalancesToFile,
                 0L,
-                20L * 60L
+                20L * 60L * 3L
         );
         plugin.getLogger().info("Saving balances...");
     }

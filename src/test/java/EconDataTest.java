@@ -25,22 +25,22 @@ public class EconDataTest {
     @BeforeEach
     public void setup() {
         econData = new EconData();
-        econData.saveAccount(player.getUniqueId(), 100);
-        econData.saveAccount(player1.getUniqueId(), 50);
-        econData.saveAccount(player2.getUniqueId(), 10);
+        econData.setBalance(player.getUniqueId(), 100);
+        econData.setBalance(player1.getUniqueId(), 50);
+        econData.setBalance(player2.getUniqueId(), 10);
     }
 
     @Test
     public void testLoadBalance(){
-        assertEquals(100, econData.loadBalance(player.getUniqueId()), "Balance should be 100 after load for player");
-        assertEquals(50, econData.loadBalance(player1.getUniqueId()), "Balance should be 50 after load for player1");
-        assertEquals(10, econData.loadBalance(player2.getUniqueId()), "Balance should be 10 after load for player2");
+        assertEquals(100, econData.getBalance(player.getUniqueId()), "Balance should be 100 after load for player");
+        assertEquals(50, econData.getBalance(player1.getUniqueId()), "Balance should be 50 after load for player1");
+        assertEquals(10, econData.getBalance(player2.getUniqueId()), "Balance should be 10 after load for player2");
     }
 
     @Test
     public void testLoadAllAccounts(){
         Map<UUID, Account> accounts = new HashMap<>();
-        econData.loadAllAccounts(accounts);
+        econData.populateAccountMap(accounts);
         assertEquals(3, accounts.size(), "Accounts map should contain 3 entries");
         Account account = accounts.get(player.getUniqueId());
         Account account1 = accounts.get(player1.getUniqueId());
@@ -52,9 +52,9 @@ public class EconDataTest {
 
 
     @Test
-    public void testSaveAccount(){
-        econData.saveAccount(player.getUniqueId(), 1000);
-        assertEquals(1000, econData.loadBalance(player.getUniqueId()), "Balance should be 1000 after save");
+    public void testsetBalance(){
+        econData.setBalance(player.getUniqueId(), 1000);
+        assertEquals(1000, econData.getBalance(player.getUniqueId()), "Balance should be 1000 after save");
     }
 
 

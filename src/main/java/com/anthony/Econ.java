@@ -5,11 +5,13 @@ import com.anthony.commands.BalanceCommand;
 import com.anthony.commands.BuyCommand;
 import com.anthony.commands.ShopCommand;
 import com.anthony.configuration.ShopConfig;
+import com.anthony.persistence.EconPersistenceManager;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -21,14 +23,23 @@ public class Econ extends JavaPlugin {
   @Getter
   private ShopConfig shopConfig;
   private EconData econData;
+  private EconPersistenceManager persistenceManager;
 
   @Override
   public void onEnable() {
     getLogger().info("EconPlugin is starting...");
     econData = new EconData();
+    persistenceManager = new EconPersistenceManager(econData, this);
     shopConfig = new ShopConfig(this);
     shopConfig.load();
-    econData.loadAllAccounts(accounts);
+
+    try{
+      persistenceManager.initialize();
+      persistenceManager.loadBalancesFromFile();
+    } catch (IOException e){
+      getLogger().severe("Failed to initialze persistence manager.");
+    }
+
     this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS,
         event -> {
           event.registrar().register("buy", "Buy something from the shop.", new BuyCommand(this, econData));
@@ -46,7 +57,7 @@ public class Econ extends JavaPlugin {
   public Account getAccount(Player player) {
     return accounts.computeIfAbsent(player.getUniqueId(), uuid -> {
       Account account = new Account(player);
-      int balance = econData.loadBalance(uuid);
+      int balance = econData.getBalance(uuid);
       account.setBalance(balance);
       return account;
     });
@@ -55,8 +66,9 @@ public class Econ extends JavaPlugin {
   @Override
   public void onDisable() {
     for (Account account : accounts.values()) {
-      econData.saveAccount(account.getPlayerID(), account.getBalance());
+      econData.setBalance(account.getPlayerID(), account.getBalance());
     }
+    persistenceManager.saveBalancesToFile();
     getLogger().info("EconPlugin has been disabled!");
   }
 }

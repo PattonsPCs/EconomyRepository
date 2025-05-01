@@ -29,7 +29,20 @@ public class AbstractConfig {
       }
       plugin.saveResource(fileName, false);
     }
+
+    if( !file.exists() ) {
+      plugin.saveResource(fileName, false);
+      plugin.getLogger().severe("Failed to save config file.");
+    }
     config = YamlConfiguration.loadConfiguration(file);
+    plugin.getLogger().info("Loaded config file " + fileName);
+  }
+
+  public void reload() {
+      if (file == null || !file.exists()) {
+          return;
+      }
+      load();
   }
 
 }

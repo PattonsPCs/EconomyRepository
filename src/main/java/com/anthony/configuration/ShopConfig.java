@@ -54,7 +54,12 @@ public class ShopConfig extends AbstractConfig {
   }
 
   public int getAmount(String id) {
-    return getConfig().getInt("shop.items." + id + ".amount");
+    String path = "shop.items." + id + ".amount";
+    int amount = getConfig().getInt(path, 1);
+    getPlugin().getLogger().info("Getting amount for " + id + " at path " + path + ": " + amount);
+    // Also log the raw value to see what's actually in the config
+    getPlugin().getLogger().info("Raw config value: " + getConfig().get(path));
+    return amount;
   }
 
   public int getItemPrice(String id) {

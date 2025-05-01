@@ -40,7 +40,7 @@ public class BuyCommand implements BasicCommand {
     }
 
     UUID uuid = player.getUniqueId();
-    int amount = econ.getShopConfig().getAmount(itemId.toLowerCase());
+    int amount = econ.getShopConfig().getItemPrice(itemId);
 
     if(!(econData.canAfford(uuid, amount))) {
       sender.sendRichMessage("<red>You do not have enough to buy this item.");
@@ -50,7 +50,7 @@ public class BuyCommand implements BasicCommand {
     ItemStack item = econ.getShopConfig().getItem(itemId);
     if (item != null) {
       player.getInventory().addItem(item.clone());
-      sender.sendRichMessage("<green>You have bought <gold>" + econ.getShopConfig().getAmount(itemId) + " " +item.getType().name() + "</gold> for <light_purple>" + amount + "</light_purple>.</green>");
+      sender.sendRichMessage("<green>You have bought <gold>" + econ.getShopConfig().getAmount(itemId) + " " +item.getType().name() + "</gold> for <bold><light_purple>$" + amount + "</light_purple></bold>.</green>");
     } else {
       sender.sendRichMessage("<red>Item not found in shop.</red>");
     }

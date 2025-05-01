@@ -25,6 +25,8 @@ public class Econ extends JavaPlugin {
     shopConfig = new ShopConfig(this);
     shopConfig.load();
 
+
+
     try{
       persistenceManager.initialize();
       persistenceManager.loadBalancesFromFile();
@@ -36,7 +38,6 @@ public class Econ extends JavaPlugin {
     }
 
     getServer().getPluginManager().registerEvents(new MobKillListener(econData), this);
-
     this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS,
         event -> {
           event.registrar().register("buy", "Buy something from the shop.", new BuyCommand(this, econData));
@@ -45,7 +46,6 @@ public class Econ extends JavaPlugin {
           event.registrar().register("shop", "See items in the shop", new ShopCommand(this));
           event.registrar().register("save", "Saves balances", new SaveCommand(persistenceManager));
         });
-
     getLogger().info("EconPlugin has been enabled!");
     shopConfig.reload();
   }

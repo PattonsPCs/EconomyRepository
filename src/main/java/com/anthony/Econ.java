@@ -5,6 +5,7 @@ import com.anthony.commands.BalanceCommand;
 import com.anthony.commands.BuyCommand;
 import com.anthony.commands.ShopCommand;
 import com.anthony.configuration.ShopConfig;
+import com.anthony.events.MobKillListener;
 import com.anthony.persistence.EconPersistenceManager;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import lombok.Getter;
@@ -42,6 +43,8 @@ public class Econ extends JavaPlugin {
       getLogger().severe("Failed to initialze persistence manager.");
       getServer().getPluginManager().disablePlugin(this);
     }
+
+    getServer().getPluginManager().registerEvents(new MobKillListener(econData), this);
 
     this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS,
         event -> {

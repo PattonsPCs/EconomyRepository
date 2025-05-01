@@ -41,5 +41,8 @@ public class AbstractConfig {
 
   }
 
+  public void reload(){
+    load();
+  }
 
 }

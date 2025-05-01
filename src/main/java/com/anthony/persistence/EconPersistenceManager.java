@@ -3,6 +3,7 @@ package com.anthony.persistence;
 import com.anthony.EconData;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -53,6 +54,17 @@ public class EconPersistenceManager {
             plugin.getLogger().info("Saved " + accounts.size() + " accounts to accounts.yml file.");
         } catch (IOException e) {
             plugin.getLogger().severe("Failed to save accounts.yml file.");
+        }
+    }
+
+    public void saveBalanceToFile(UUID uuid){
+        OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
+        config.set(uuid.toString(), econData.getBalance(uuid));
+        try{
+            config.save(file);
+            plugin.getLogger().info("Saved balance for " +  player.getName() + " ( " + uuid + ")");
+        } catch (IOException e){
+            plugin.getLogger().severe("Failed to save account.");
         }
     }
 

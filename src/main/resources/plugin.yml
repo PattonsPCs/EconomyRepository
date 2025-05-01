@@ -5,3 +5,12 @@ api-version: 1.21
 description: A simple economy plugin for managing player currency
 authors: [ Anthony ]
 
+
+permissions:
+  econplugin.save.use:
+    description: Allows a player to save their own balance
+    default: true
+
+  econplugin.save.others:
+    description: Allows an admin to save other players' balances
+    default: op

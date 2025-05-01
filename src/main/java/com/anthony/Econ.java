@@ -1,9 +1,6 @@
 package com.anthony;
 
-import com.anthony.commands.AddMoney;
-import com.anthony.commands.BalanceCommand;
-import com.anthony.commands.BuyCommand;
-import com.anthony.commands.ShopCommand;
+import com.anthony.commands.*;
 import com.anthony.configuration.ShopConfig;
 import com.anthony.events.MobKillListener;
 import com.anthony.persistence.EconPersistenceManager;
@@ -46,6 +43,7 @@ public class Econ extends JavaPlugin {
           event.registrar().register("balance", "Check your balance.", new BalanceCommand(econData));
           event.registrar().register("addmoney", "Add money to an account", new AddMoney(econData));
           event.registrar().register("shop", "See items in the shop", new ShopCommand(this));
+          event.registrar().register("save", "Saves balances", new SaveCommand(persistenceManager));
         });
 
     getLogger().info("EconPlugin has been enabled!");

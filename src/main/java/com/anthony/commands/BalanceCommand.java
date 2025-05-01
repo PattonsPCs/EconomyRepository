@@ -9,7 +9,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.NullMarked;
-import java.util.UUID;
 
 @NullMarked
 @SuppressWarnings("UnstableApiUsage")
@@ -38,9 +37,5 @@ public class BalanceCommand implements BasicCommand {
         player.sendRichMessage("Your current balance is <bold><yellow>$" + econData.getBalance(target.getUniqueId()) + "</yellow></bold>.</gold>");
       }
     }
-
-    UUID uuid = player.getUniqueId();
-    int balance = econData.getBalance(uuid);
-    player.sendRichMessage("<gold>Your current balance is <bold><yellow>$" + balance + "</yellow></bold>.</gold>");
   }
 }

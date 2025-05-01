@@ -69,6 +69,11 @@ public class EconPersistenceManager {
     }
 
     public void startAutoSaveTask(){
+        plugin.getLogger().info("Saving balances...");
+        if(Bukkit.getOnlinePlayers().isEmpty()){
+            return;
+        }
+
         if(autoSaveTask != null && !autoSaveTask.isCancelled()){
             autoSaveTask.cancel();
         }
@@ -79,13 +84,11 @@ public class EconPersistenceManager {
                 0L,
                 20L * 60L * 3L
         );
-        plugin.getLogger().info("Saving balances...");
     }
 
     public void stopAutoSaveTask(){
-        if(autoSaveTask != null && !autoSaveTask.isCancelled()){
-            autoSaveTask.cancel();
-        }
+        if(autoSaveTask != null && !autoSaveTask.isCancelled())
+            return;
         plugin.getLogger().info("Stopped saving balances.");
     }
 

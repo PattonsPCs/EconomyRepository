@@ -14,3 +14,11 @@ permissions:
   econplugin.save.others:
     description: Allows an admin to save other players' balances
     default: op
+
+  econplugin.balance.use:
+    description: Allows a player to view their own balance
+    default: true
+
+  econplugin.balance.others:
+    description: Allows an admin to view other players' balances
+    default: op

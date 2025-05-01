@@ -4,10 +4,11 @@ package com.anthony.commands;
 import com.anthony.EconData;
 import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.NullMarked;
-
 import java.util.UUID;
 
 @NullMarked
@@ -25,6 +26,17 @@ public class BalanceCommand implements BasicCommand {
     if (!(sender instanceof Player player)) {
       sender.sendMessage("You must be a player to use this command.");
       return;
+    }
+
+    if(args.length == 0){
+      player.sendRichMessage("<gold>Your current balance is <bold><yellow>$" + econData.getBalance(player.getUniqueId()) + "</yellow></bold>.</gold>");
+    } else if(args.length == 1){
+      if(!player.hasPermission("econplugin.balance.others")){
+        player.sendRichMessage("<bold><red>You don't have permission to view another player's balance</bold>");
+      } else{
+        OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
+        player.sendRichMessage("Your current balance is <bold><yellow>$" + econData.getBalance(target.getUniqueId()) + "</yellow></bold>.</gold>");
+      }
     }
 
     UUID uuid = player.getUniqueId();

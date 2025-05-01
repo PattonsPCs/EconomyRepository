@@ -36,8 +36,11 @@ public class Econ extends JavaPlugin {
     try{
       persistenceManager.initialize();
       persistenceManager.loadBalancesFromFile();
+      persistenceManager.startAutoSaveTask();
+      getLogger().info("Persistence manager initialized.");
     } catch (IOException e){
       getLogger().severe("Failed to initialze persistence manager.");
+      getServer().getPluginManager().disablePlugin(this);
     }
 
     this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS,
@@ -68,6 +71,7 @@ public class Econ extends JavaPlugin {
     for (Account account : accounts.values()) {
       econData.setBalance(account.getPlayerID(), account.getBalance());
     }
+    persistenceManager.stopAutoSaveTask();
     persistenceManager.saveBalancesToFile();
     getLogger().info("EconPlugin has been disabled!");
   }

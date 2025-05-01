@@ -2,9 +2,12 @@ package com.anthony.persistence;
 
 import com.anthony.EconData;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
@@ -16,6 +19,7 @@ public class EconPersistenceManager {
     private final JavaPlugin plugin;
     private final File file;
     private final FileConfiguration config;
+    private BukkitTask autoSaveTask;
 
     public EconPersistenceManager(EconData econData, JavaPlugin plugin) {
         this.econData = econData;
@@ -51,5 +55,28 @@ public class EconPersistenceManager {
             plugin.getLogger().severe("Failed to save accounts.yml file.");
         }
     }
+
+    public void startAutoSaveTask(){
+        if(autoSaveTask != null && !autoSaveTask.isCancelled()){
+            autoSaveTask.cancel();
+        }
+
+        autoSaveTask = Bukkit.getScheduler().runTaskTimer(
+                plugin,
+                this::saveBalancesToFile,
+                0L,
+                20L * 60L
+        );
+        plugin.getLogger().info("Saving balances...");
+    }
+
+    public void stopAutoSaveTask(){
+        if(autoSaveTask != null && !autoSaveTask.isCancelled()){
+            autoSaveTask.cancel();
+        }
+        plugin.getLogger().info("Stopped saving balances.");
+    }
+
+
 
 }

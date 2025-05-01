@@ -28,14 +28,14 @@ public class SaveCommand implements BasicCommand {
 
         if(args.length == 0){
             persistenceManager.saveBalanceToFile(player.getUniqueId());
-            player.sendMessage("Your balance has been saved.");
+            player.sendRichMessage("<bold><green>Your balance has been saved.</bold>");
         } else if(args.length == 1){
             if(!player.hasPermission("econplugin.save.others")){
                 player.sendRichMessage("<bold><red>You don't have permission to save other player's balances.</bold>");
             } else{
                 OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
                 persistenceManager.saveBalanceToFile(target.getUniqueId());
-                player.sendMessage("Saved balance for " + target.getName());
+                player.sendMessage("<bold><green>Saved balance for " + target.getName() + ".</bold>");
             }
 
 

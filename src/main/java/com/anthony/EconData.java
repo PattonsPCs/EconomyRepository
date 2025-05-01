@@ -18,15 +18,24 @@ public class EconData {
   }
 
 
-  public void populateAccountMap(Map<UUID, Account> accounts) {
-    for (Map.Entry<UUID, Integer> entry : balances.entrySet()) {
-      UUID uuid = entry.getKey();
-      int balance = entry.getValue();
-      accounts.put(uuid, new Account(uuid, balance));
-    }
-  }
-
   public Map<UUID, Integer> getAllBalances() {
     return balances;
   }
+
+  public boolean canAfford(UUID uuid, int amount){
+    return getBalance(uuid) >= amount;
+  }
+
+  public void deposit(UUID uuid, int amount){
+    if(amount < 0) return;
+    setBalance(uuid, getBalance(uuid) + amount);
+  }
+
+  public boolean withdraw(UUID uuid, int amount){
+    if (!canAfford(uuid, amount)) return false;
+    setBalance(uuid, getBalance(uuid) - amount);
+    return true;
+  }
 }
+
+

@@ -1,7 +1,7 @@
 package com.anthony.commands;
 
 
-import com.anthony.Econ;
+import com.anthony.EconData;
 import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import org.bukkit.Bukkit;
@@ -11,14 +11,15 @@ import org.jspecify.annotations.NullMarked;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.UUID;
 
 @NullMarked
 @SuppressWarnings("UnstableApiUsage")
 public class AddMoney implements BasicCommand {
-    private final Econ econ;
+    private final EconData econData;
 
-    public AddMoney(Econ econ) {
-        this.econ = econ;
+    public AddMoney(EconData econData) {
+        this.econData = econData;
     }
 
     @Override
@@ -36,7 +37,8 @@ public class AddMoney implements BasicCommand {
             sender.sendRichMessage("<red>Player not found.");
             return;
         }
-        econ.getAccount(player).deposit(amount);
+        UUID uuid = player.getUniqueId();
+        econData.deposit(uuid, amount);
         sender.sendRichMessage("<gold>You have added <yellow>" + amount + "</yellow> to your account.</gold>");
     }
 

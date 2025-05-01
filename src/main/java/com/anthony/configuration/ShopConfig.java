@@ -1,10 +1,8 @@
 package com.anthony.configuration;
 
-import com.anthony.Account;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Collection;
@@ -15,16 +13,6 @@ public class ShopConfig extends AbstractConfig {
 
   public ShopConfig(JavaPlugin plugin) {
     super(plugin, "shop.yml");
-  }
-
-  public boolean canAfford(Player player, Account account, String id) {
-    int price = getItemPrice(id);
-    if (account.getBalance() < price) {
-      player.sendMessage("You do not have enough money to buy this item.");
-      return false;
-    } else {
-      return true;
-    }
   }
 
   public ItemStack getItem(String id) {

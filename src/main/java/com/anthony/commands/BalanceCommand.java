@@ -1,51 +1,34 @@
 package com.anthony.commands;
 
 
-import com.anthony.Account;
-import com.anthony.Econ;
+import com.anthony.EconData;
 import io.papermc.paper.command.brigadier.BasicCommand;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jspecify.annotations.NullMarked;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.UUID;
 
 @NullMarked
 @SuppressWarnings("UnstableApiUsage")
 public class BalanceCommand implements BasicCommand {
 
-  private final Econ econ;
-  private final Logger logger = LoggerFactory.getLogger(BalanceCommand.class);
-
-  public BalanceCommand(Econ econ) {
-    this.econ = econ;
+  private final EconData econData;
+  public BalanceCommand(EconData econData) {
+    this.econData = econData;
   }
 
   @Override
   public void execute(CommandSourceStack source, String[] args) {
-    Player player = (Player) source.getExecutor();
-    if (player == null) {
-      source.getExecutor().sendMessage("You must be a player to use this command.");
-      logger.debug("Command executed by non-player.");
+    CommandSender sender = source.getSender();
+    if (!(sender instanceof Player player)) {
+      sender.sendMessage("You must be a player to use this command.");
       return;
     }
-    Account account = econ.getAccount(player);
 
-    if (account == null) {
-      player.sendMessage("Account not found.");
-      logger.debug("Account not found for player.");
-      return;
-    }
-    Component balanceMessage = Component.text("Your current balance is " + getBalance(account) + ".")
-        .color(NamedTextColor.GOLD);
-    source.getExecutor().sendMessage(balanceMessage);
+    UUID uuid = player.getUniqueId();
+    int balance = econData.getBalance(uuid);
+    player.sendRichMessage("<gold>Your current balance is <bold><yellow>$" + balance + "</yellow></bold>.</gold>");
   }
-
-  private int getBalance(Account account) {
-    return account.getBalance();
-  }
-
-
 }

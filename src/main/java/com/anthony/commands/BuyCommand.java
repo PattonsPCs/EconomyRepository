@@ -1,6 +1,5 @@
 package com.anthony.commands;
 
-import com.anthony.Account;
 import com.anthony.Econ;
 import com.anthony.EconData;
 import io.papermc.paper.command.brigadier.BasicCommand;
@@ -10,6 +9,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jspecify.annotations.NullMarked;
+
+import java.util.UUID;
 
 @NullMarked
 @SuppressWarnings("UnstableApiUsage")
@@ -37,20 +38,19 @@ public class BuyCommand implements BasicCommand {
       sender.sendRichMessage("<red>Player not found.");
       return;
     }
-    Account account = econ.getAccount(player);
 
-    if (!econ.getShopConfig().canAfford(player, account, itemId)) {
+    UUID uuid = player.getUniqueId();
+    int amount = econ.getShopConfig().getAmount(itemId.toLowerCase());
+
+    if(!(econData.canAfford(uuid, amount))) {
+      sender.sendRichMessage("<red>You do not have enough to buy this item.");
       return;
     }
-
-    int price = econ.getShopConfig().getItemPrice(itemId);
-    account.withdraw(price);
-    econData.setBalance(account.getPlayerID(), account.getBalance());
-
+    econData.withdraw(uuid, amount);
     ItemStack item = econ.getShopConfig().getItem(itemId);
     if (item != null) {
       player.getInventory().addItem(item.clone());
-      sender.sendRichMessage("<green>You have bought <gold>" + econ.getShopConfig().getAmount(itemId) + " " +item.getType().name() + "</gold> for <light_purple>" + price + "</light_purple>.</green>");
+      sender.sendRichMessage("<green>You have bought <gold>" + econ.getShopConfig().getAmount(itemId) + " " +item.getType().name() + "</gold> for <light_purple>" + amount + "</light_purple>.</green>");
     } else {
       sender.sendRichMessage("<red>Item not found in shop.</red>");
     }

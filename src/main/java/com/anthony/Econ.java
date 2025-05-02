@@ -3,7 +3,9 @@ package com.anthony;
 import com.anthony.commands.*;
 import com.anthony.configuration.ShopConfig;
 import com.anthony.events.MobKillListener;
+import com.anthony.events.TransactionListener;
 import com.anthony.persistence.EconPersistenceManager;
+import com.anthony.transactions.PluginLogger;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,6 +18,7 @@ public class Econ extends JavaPlugin {
   private ShopConfig shopConfig;
   private EconData econData;
   private EconPersistenceManager persistenceManager;
+  PluginLogger econLogger = new PluginLogger(this, "receipts.txt");
 
   @Override
   public void onEnable() {
@@ -24,7 +27,6 @@ public class Econ extends JavaPlugin {
     persistenceManager = new EconPersistenceManager(econData, this);
     shopConfig = new ShopConfig(this);
     shopConfig.load();
-
 
 
     try{
@@ -37,7 +39,8 @@ public class Econ extends JavaPlugin {
       getServer().getPluginManager().disablePlugin(this);
     }
 
-    getServer().getPluginManager().registerEvents(new MobKillListener(econData), this);
+    getServer().getPluginManager().registerEvents(new MobKillListener(econData, econLogger), this);
+    getServer().getPluginManager().registerEvents(new TransactionListener(econLogger), this);
     this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS,
         event -> {
           event.registrar().register("buy", "Buy something from the shop.", new BuyCommand(this, econData));

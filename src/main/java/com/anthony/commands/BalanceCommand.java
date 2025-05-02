@@ -34,7 +34,7 @@ public class BalanceCommand implements BasicCommand {
         player.sendRichMessage("<bold><red>You don't have permission to view another player's balance</bold>");
       } else{
         OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
-        player.sendRichMessage("<gold>"+ target.getName() + "'s current balance is <bold><yellow>$" + econData.getBalance(target.getUniqueId()) + "</yellow></bold>.");
+        player.sendRichMessage("<gold>"+ target.getName() + "'s current balance is <bold><yellow>$" + econData.getBalance(target.getUniqueId()) + "</yellow></bold>.</gold>");
       }
     }
   }

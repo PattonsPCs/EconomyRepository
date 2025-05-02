@@ -26,6 +26,6 @@ public class MobKillListener implements Listener {
         int currentBalance = econData.getBalance(uuid);
         int reward = 15;
         econData.setBalance(uuid, currentBalance + reward);
-        killer.sendActionBar(MiniMessage.miniMessage().deserialize("<bold><italic><dark_gray>You killed a <white>" + event.getEntity().getName() + "</white>. +$" + reward + "</dark_gray></bold>"));
+        killer.sendActionBar(MiniMessage.miniMessage().deserialize("<bold><italic><dark_gray>You killed a <white>" + event.getEntity().getName() + "</white>. <green>+$" + reward + "</green></dark_gray></bold>"));
     }
 }

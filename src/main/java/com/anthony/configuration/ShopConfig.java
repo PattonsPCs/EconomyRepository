@@ -14,10 +14,10 @@ import org.bukkit.configuration.file.YamlConfiguration;
 @Setter
 public class ShopConfig extends AbstractConfig {
   private FileConfiguration config;
-  private AbstractConfig abstractConfig;
+
   public ShopConfig(JavaPlugin plugin) {
     super(plugin, "shop.yml");
-    this.config = YamlConfiguration.loadConfiguration(abstractConfig.getFile());
+    this.config = YamlConfiguration.loadConfiguration(getFile());
   }
   public ItemStack getItem(String id) {
     String materialName = getConfig().getString("shop.items." + id.toLowerCase() + ".item");

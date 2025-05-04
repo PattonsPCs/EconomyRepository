@@ -48,11 +48,16 @@ public class BuyCommand implements BasicCommand {
     }
     econData.withdraw(uuid, amount);
     ItemStack item = econ.getShopConfig().getItem(itemId);
-    if (item != null) {
-      player.getInventory().addItem(item.clone());
-      sender.sendRichMessage("<green>You have bought <gold>" + econ.getShopConfig().getAmount(itemId) + " " +item.getType().name() + "</gold> for <bold><light_purple>$" + amount + "</light_purple></bold>.</green>");
-    } else {
-      sender.sendRichMessage("<red>Item not found in shop.</red>");
+    if(econ.getShopConfig().getStockAmount(itemId) > 0){
+      if (item != null) {
+        econ.getShopConfig().updateYAML(itemId);
+        player.getInventory().addItem(item.clone());
+        sender.sendRichMessage("<green>You have bought <gold>" + econ.getShopConfig().getBuyAmount(itemId) + " " +item.getType().name() + "</gold> for <bold><light_purple>$" + amount + "</light_purple></bold>.</green>");
+      } else {
+        sender.sendRichMessage("<red>Item not found in shop.</red>");
+      }
+    } else{
+      player.sendRichMessage("<bold><red>That item is out of stock.</red></bold>");
     }
   }
 

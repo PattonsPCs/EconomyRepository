@@ -18,7 +18,8 @@ public class Econ extends JavaPlugin {
   private ShopConfig shopConfig;
   private EconData econData;
   private EconPersistenceManager persistenceManager;
-  PluginLogger econLogger = new PluginLogger(this, "receipts.txt");
+  private final PluginLogger econLogger = new PluginLogger(this, "receipts.txt");
+
 
   @Override
   public void onEnable() {
@@ -33,11 +34,13 @@ public class Econ extends JavaPlugin {
       persistenceManager.initialize();
       persistenceManager.loadBalancesFromFile();
       persistenceManager.startAutoSaveTask();
+
       getLogger().info("Persistence manager initialized.");
     } catch (IOException e){
       getLogger().severe("Failed to initialize persistence manager.");
       getServer().getPluginManager().disablePlugin(this);
     }
+
 
     getServer().getPluginManager().registerEvents(new MobKillListener(econData, econLogger), this);
     getServer().getPluginManager().registerEvents(new TransactionListener(econLogger), this);

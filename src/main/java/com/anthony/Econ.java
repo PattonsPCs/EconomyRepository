@@ -48,7 +48,7 @@ public class Econ extends JavaPlugin {
         event -> {
           event.registrar().register("buy", "Buy something from the shop.", new BuyCommand(this, econData));
           event.registrar().register("balance", "Check your balance.", new BalanceCommand(econData));
-          event.registrar().register("addmoney", "Add money to an account", new AddMoney(econData));
+          event.registrar().register("addmoney", "Add money to an account", new EconomyCommand(econData));
           event.registrar().register("shop", "See items in the shop", new ShopCommand(this));
           event.registrar().register("save", "Saves balances", new SaveCommand(persistenceManager));
         });

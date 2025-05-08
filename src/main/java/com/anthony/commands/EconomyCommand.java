@@ -2,6 +2,7 @@ package com.anthony.commands;
 
 
 import com.anthony.EconData;
+import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.tree.LiteralCommandNode;
@@ -32,7 +33,8 @@ public class EconomyCommand  {
 
                                         int amount = IntegerArgumentType.getInteger(ctx, "amount");
                                         econData.deposit(target.getUniqueId(), amount);
-                                        return amount;
+                                        ctx.getSource().getSender().sendMessage("Deposited " + amount + " to " + target.getName());
+                                        return Command.SINGLE_SUCCESS;
                                     })
                             )
                     )
@@ -45,7 +47,8 @@ public class EconomyCommand  {
                                         Player target = targetResolver.resolve(ctx.getSource()).getFirst();
                                         int amount = IntegerArgumentType.getInteger(ctx, "amount");
                                         econData.withdraw(target.getUniqueId(), amount);
-                                        return amount;
+                                        ctx.getSource().getSender().sendMessage("Removed " + amount + " to " + target.getName());
+                                        return Command.SINGLE_SUCCESS;
                                     })
                             )
                     )
@@ -56,7 +59,8 @@ public class EconomyCommand  {
                                 PlayerSelectorArgumentResolver targetResolver =  ctx.getArgument("target", PlayerSelectorArgumentResolver.class);
                                 Player target = targetResolver.resolve(ctx.getSource()).getFirst();
 
-                                return econData.getBalance(target.getUniqueId());
+                                ctx.getSource().getSender().sendMessage(target.getName() + "'s balance is " + econData.getBalance(target.getUniqueId()));
+                                return Command.SINGLE_SUCCESS;
                             })
                     )
             )
@@ -68,7 +72,9 @@ public class EconomyCommand  {
                                         Player target = targetResolver.resolve(ctx.getSource()).getFirst();
                                         int amount = IntegerArgumentType.getInteger(ctx, "amount");
                                         econData.setBalance(target.getUniqueId(), amount);
-                                        return econData.getBalance(target.getUniqueId());
+
+                                        ctx.getSource().getSender().sendMessage("Set " + amount + " to " + target.getName());
+                                        return Command.SINGLE_SUCCESS;
                                     })
                             )
                     )
@@ -81,7 +87,8 @@ public class EconomyCommand  {
 
                                 int amount = defaultBalance;
                                 econData.setBalance(target.getUniqueId(), amount);
-                                return econData.getBalance(target.getUniqueId());
+                                ctx.getSource().getSender().sendMessage("Reset " + amount + " to " + target.getName());
+                                return Command.SINGLE_SUCCESS;
                             })
                     )
             );

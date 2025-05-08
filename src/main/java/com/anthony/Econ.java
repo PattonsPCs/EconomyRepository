@@ -21,15 +21,14 @@ public class Econ extends JavaPlugin {
   @Override
   public void onEnable() {
     getLogger().info("EconPlugin is starting...");
-      EconData econData = new EconData();
+    EconData econData = new EconData();
     EconomyCommand econCommand = new EconomyCommand(econData);
     persistenceManager = new EconPersistenceManager(econData, this);
     shopConfig = new ShopConfig(this);
     shopConfig.load();
 
-    this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, event -> {
-      Commands commandRegistrar = event.registrar();
-
+    this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
+      Commands commandRegistrar = commands.registrar();
       commandRegistrar.register(econCommand.build());
     });
 
@@ -47,8 +46,6 @@ public class Econ extends JavaPlugin {
     }
 
 
-    this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
-    });
 
     getLogger().info("EconPlugin has been enabled!");
     shopConfig.reload();

@@ -9,7 +9,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Collection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-
 @Getter
 @Setter
 public class ShopConfig extends AbstractConfig {
@@ -33,7 +32,7 @@ public class ShopConfig extends AbstractConfig {
       return null;
     }
     ItemStack item = new ItemStack(material);
-    int amount = getBuyAmount(id);
+    int amount = getAmount(id);
     if (amount > 0) {
       item.setAmount(amount);
     }
@@ -45,7 +44,7 @@ public class ShopConfig extends AbstractConfig {
     return getConfig().getConfigurationSection("shop.items").getKeys(false);
   }
 
-  public int getBuyAmount(String id) {
+  public int getAmount(String id) {
     String path = "shop.items." + id.toLowerCase() + ".on_buy_amount";
     int amount = getConfig().getInt(path, 1);
     getPlugin().getLogger().info("Getting amount for " + id.toLowerCase() + " at path " + path + ": " + amount);
@@ -54,10 +53,7 @@ public class ShopConfig extends AbstractConfig {
     return amount;
   }
 
-  public int getStockAmount(String id){
-    String path = "shop.items." + id.toLowerCase() + ".stock_amount";
-    return getConfig().getInt(path, 5);
-  }
+
 
   public int getItemPrice(String id) {
     String path = "shop.items." + id.toLowerCase() + ".price";
@@ -90,12 +86,6 @@ public class ShopConfig extends AbstractConfig {
   }
 
 
-  public void updateYAML(String id) {
-    String path = "shop.items" + id + "stock_amount";
-    int currentAmount = getStockAmount(id);
-    int loss = getBuyAmount(id);
-    config.set(path, currentAmount - loss);
-  }
 
 
 

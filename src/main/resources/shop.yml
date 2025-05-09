@@ -3,19 +3,28 @@ shop:
     apple:
       item: APPLE
       price: 10
+      on_buy_amount: 5
+      stock_amount: 40
 
     iron_chestplate:
       item: IRON_CHESTPLATE
       price: 12
+      stock_amount: 15
 
     diamond_sword:
       item: DIAMOND_SWORD
       price: 25
+      stock_amount: 10
 
     steak:
       item: COOKED_BEEF
       price: 15
+      on_buy_amount: 3
+      stock_amount: 15
+
 
     wheat:
       item: WHEAT
       price: 8
+      on_buy_amount: 7
+      stock_amount: 25

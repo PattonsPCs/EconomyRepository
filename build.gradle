@@ -1,5 +1,6 @@
 plugins {
-    id("java")
+    id 'java'
+    id 'com.gradleup.shadow' version '8.3.0'
 }
 
 group = 'org.example'
@@ -8,28 +9,41 @@ version = '1.0-SNAPSHOT'
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
-    maven {
-        name = 'papermc'
-        url = 'https://repo.papermc.io/repository/maven-public/'
-    }
+    maven { url = 'https://repo.papermc.io/repository/maven-public/' }
+    maven { url 'https://jitpack.io' }
+
 }
 
 dependencies {
-    compileOnly "io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT"
     compileOnly("com.github.MilkBowl:VaultAPI:1.7") {
         exclude group: 'org.bukkit', module: 'bukkit'
     }
-
+    compileOnly 'io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT'
     implementation 'org.xerial:sqlite-jdbc:3.49.1.0'
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
     implementation 'org.slf4j:slf4j-api:2.0.17'
     implementation 'org.slf4j:slf4j-simple:2.0.17'
 
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation(platform("org.junit:junit-bom:5.12.2"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+
+    testImplementation 'com.github.MockBukkit:MockBukkit:v1.21-SNAPSHOT'
+    testImplementation 'io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT'
+    implementation 'fr.mrmicky:FastInv:3.1.1'
 }
 
 test {
     useJUnitPlatform()
+    testLogging{
+        events "passed", "skipped", "failed"
+    }
+
+
+}
+
+shadowJar {
+    relocate 'fr.mrmickey.fastinv', 'com.anthony.fastinv'
 }

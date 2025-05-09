@@ -6,27 +6,36 @@ import java.util.Map;
 import java.util.UUID;
 
 public class EconData {
-    private final Map<UUID, Integer> balances = new HashMap<>();
+  private final Map<UUID, Integer> balances = new HashMap<>();
 
 
-    public void saveAccount(UUID uuid, int balance){
-        balances.put(uuid, balance);
-    }
+  public void setBalance(UUID uuid, int balance) {
+    balances.put(uuid, balance);
+  }
 
-    public int loadBalance(UUID uuid){
-        return balances.getOrDefault(uuid, 0);
-    }
-
-    public void saveBalance(UUID uuid, int balance){
-        balances.put(uuid, balance);
-    }
+  public int getBalance(UUID uuid) {
+    return balances.getOrDefault(uuid, 0);
+  }
 
 
-    public void loadAllBalances(Map<UUID, Account> accounts){
-        for(Map.Entry<UUID, Integer> entry : balances.entrySet()){
-            UUID uuid = entry.getKey();
-            int balance = entry.getValue();
-            accounts.put(uuid, new Account(uuid, balance));
-        }
-    }
+  public Map<UUID, Integer> getAllBalances() {
+    return balances;
+  }
+
+  public boolean canAfford(UUID uuid, int amount){
+    return getBalance(uuid) >= amount;
+  }
+
+  public void deposit(UUID uuid, int amount){
+    if(amount < 0) return;
+    setBalance(uuid, getBalance(uuid) + amount);
+  }
+
+  public boolean withdraw(UUID uuid, int amount){
+    if (!canAfford(uuid, amount)) return false;
+    setBalance(uuid, getBalance(uuid) - amount);
+    return true;
+  }
 }
+
+
